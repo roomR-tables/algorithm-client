@@ -20,6 +20,13 @@ pip3 install setuptools
 python setup.py develop
 ```
 
+## Unit tests
+Alle logica in dit project kan worden getest met behulp van unit tests. Deze bevinden zich in de `/algorithm_client/test`
+map. De test kunnen worden uitgevoerd met het commando
+```bash
+python -m unittest
+```
+
 ## MQTT
 Om gebruik te maken van een lokale MQTT broker kunnen de volgende instellingen in `development.ini` aangepast worden:
 ```bash
