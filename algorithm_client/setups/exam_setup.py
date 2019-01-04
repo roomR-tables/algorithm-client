@@ -18,7 +18,7 @@ class ExamSetup:
         self.distance_between_width = 50
         self.distance_between_length = 80
 
-    def calculate_setup(self):
+    def create_setup(self):
         """
         Calculate a setup based on the dimensions of the given room and given tables
         :return: List of tables in the correct position for this setup
