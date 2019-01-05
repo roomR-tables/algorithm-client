@@ -78,11 +78,11 @@ class KdTree:
             raise KdTreeError("The KD tree is empty")
 
         curr_node = self.root
-        curr_dimension = 0
+        curr_dimension = self.start_dimension
         found_node = None
 
         while found_node is None and curr_node is not None:
-            compare_result = search_func(value, curr_node.value, curr_dimension)
+            compare_result = search_func(value, curr_node, curr_dimension)
             next_dimension = 0 if curr_dimension + 1 > self.dimensions else curr_dimension + 1
 
             if compare_result == 0:

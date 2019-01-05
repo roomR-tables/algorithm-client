@@ -41,10 +41,10 @@ class TestKdTree(unittest.TestCase):
         self.assertEqual(traverse_result, expected_results)
 
     def test_search(self):
-        def search_func(value, node_value, curr_dimension):
-            if value == node_value:
+        def search_func(value, node, dimension):
+            if value == node.value:
                 return 0
-            elif value[curr_dimension - 1] <= node_value[curr_dimension - 1]:
+            elif value[dimension] <= node.value[dimension]:
                 return -1
             else:
                 return 1
