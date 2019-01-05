@@ -1,8 +1,8 @@
 import unittest
-from exceptions.SetupError import SetupError
+from exceptions.setup_error import SetupError
 from setups.exam_setup import ExamSetup
-from entities.room import Room
-from entities.table import Table
+from setups.entities.room import Room
+from setups.entities.table import Table
 
 
 class TestExamSetup(unittest.TestCase):

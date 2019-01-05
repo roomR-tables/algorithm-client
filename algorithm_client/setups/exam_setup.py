@@ -1,5 +1,5 @@
 import math
-from exceptions.SetupError import SetupError
+from exceptions.setup_error import SetupError
 
 
 class ExamSetup:

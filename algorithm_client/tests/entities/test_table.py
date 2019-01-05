@@ -1,5 +1,5 @@
 import unittest
-from entities.table import Table
+from setups.entities.table import Table
 
 
 class TestTable(unittest.TestCase):

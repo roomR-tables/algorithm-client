@@ -1,7 +1,6 @@
 import logging
 import json
 import paho.mqtt.client as mqtt
-from .setups import exam_setup
 
 log = logging.basicConfig()
 
@@ -33,7 +32,7 @@ def on_message(client, userdata, msg):
     client.publish(topic="cc/" + msg_json["payload"]["cc"] + "/status", payload="busy", qos=1)
 
     if msg_json["payload"]["setup"] == "exam":
-        exam_setup.ExamSetup(client).execute()
+        print("Exam setup")
 
 
 client = mqtt.Client()

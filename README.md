@@ -22,7 +22,7 @@ python setup.py develop
 
 ## Unit tests
 Alle logica in dit project kan worden getest met behulp van unit tests. Deze bevinden zich in de `/algorithm_client/test`
-map. De test kunnen worden uitgevoerd met het commando
+map. De test kunnen worden uitgevoerd met het commando (uitvoeren binnnen de `algorithm_client` map)
 ```bash
 python -m unittest
 ```
