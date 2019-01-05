@@ -1,5 +1,5 @@
 import unittest
-from exceptions.setup_error import SetupError
+from setups.exceptions.setup_error import SetupError
 from setups.exam_setup import ExamSetup
 from setups.entities.room import Room
 from setups.entities.table import Table
