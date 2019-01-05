@@ -8,9 +8,7 @@ class TestTable(unittest.TestCase):
 
     def test_set_position(self):
         self.table.set_position(10, 20)
-
-        self.assertEqual(self.table.x, 10)
-        self.assertEqual(self.table.y, 20)
+        self.assertEqual(self.table.position, (10, 20))
 
     def test_calculate_distance_to(self):
         other_table = Table(60, 60, 120)

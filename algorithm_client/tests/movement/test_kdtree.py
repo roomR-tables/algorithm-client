@@ -29,10 +29,6 @@ class TestKdTree(unittest.TestCase):
         self.tree = tree
 
     def test_insert(self):
-        # Try to insert invalid data
-        self.assertRaises(TypeError, self.tree.insert, "nope", lambda v, nv: -1)
-        self.assertRaises(ValueError, self.tree.insert, (100, 200, 300), lambda v, nv: -1)
-
         # Traverse the tree and compare to the expected results
         traverse_result = self.tree.traverse_left()
         expected_results = [(100, 200), (100, 400), (300, 200), (400, 200), (200, 200), (400, 400), (300, 400),

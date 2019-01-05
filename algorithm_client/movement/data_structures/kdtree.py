@@ -1,4 +1,6 @@
+from typing import List, Callable
 from movement.exceptions.kdtree_error import KdTreeError, KdTreeNotFoundError
+from movement.data_structures.kdnode import KdTreeNode
 
 
 class KdTree:
@@ -14,24 +16,17 @@ class KdTree:
         self.start_dimension = start_dimension - 1
         self.root = None
 
-    def insert(self, value_to_insert, compare_function):
+    def insert(self, value_to_insert, compare_function: Callable[[any, any, int], int]):
         """
         Insert a new value into the KD tree
         :param value_to_insert: Value to insert; Must be a tuple with the amount of values equal to the amount of
         dimensions
-        :type value_to_insert: tuple
         :param compare_function: Function to compare values against each other;
         :type compare_function: lambda; returns: -1 if value is < node value, 0 is value == node value, 1 if value > node value
         :return:
         """
-        if type(value_to_insert) is not tuple:
-            raise TypeError("The given value is not a tuple")
-
-        if len(value_to_insert) != self.dimensions + 1:
-            raise ValueError("The given value does not have the same dimensions as the KD tree supports")
-
         if self.root is None:
-            self.root = KdTreeNode(value_to_insert, None, None)
+            self.root = KdTreeNode(value_to_insert)
         else:
             self._insert(value_to_insert, compare_function, self.root, self.start_dimension)
 
@@ -48,18 +43,18 @@ class KdTree:
         """
         if compare_function(value, curr_node.value, curr_dimension) <= 0:
             if curr_node.left is None:
-                curr_node.left = KdTreeNode(value, None, None)
+                curr_node.left = KdTreeNode(value)
             else:
                 next_dimension = 0 if curr_dimension + 1 > self.dimensions else curr_dimension + 1
                 self._insert(value, compare_function, curr_node.left, next_dimension)
         else:
             if curr_node.right is None:
-                curr_node.right = KdTreeNode(value, None, None)
+                curr_node.right = KdTreeNode(value)
             else:
                 next_dimension = 0 if curr_dimension + 1 > self.dimensions else curr_dimension + 1
                 self._insert(value, compare_function, curr_node.right, next_dimension)
 
-    def find(self, value, search_func):
+    def find(self, value, search_func: Callable[[any, KdTreeNode, int], int]) -> KdTreeNode:
         """
         Find an exact value in the KD tree
         :param value: Value to search for
@@ -99,10 +94,10 @@ class KdTree:
         else:
             raise KdTreeNotFoundError()
 
-    def traverse_left(self):
+    def traverse_left(self) -> List[any]:
         return self._traverse_left(self.root)
 
-    def _traverse_left(self, curr_node):
+    def _traverse_left(self, curr_node) -> list:
         res = []
 
         if curr_node:
@@ -111,20 +106,3 @@ class KdTree:
             res = res + self._traverse_left(curr_node.right)
 
         return res
-
-
-class KdTreeNode:
-    def __init__(self, value, left, right):
-        """
-        KdNode
-        :param value: Value to insert; Must be a tuple with the amount of values equal to the amount of
-        dimensions of the KD-tree
-        :type value: tuple
-        :param left: The left node
-        :type left: KdNode, None
-        :param right: The right node
-        :type right: KdNode, None
-        """
-        self.value = value
-        self.left = left
-        self.right = right

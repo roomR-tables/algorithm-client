@@ -1,4 +1,6 @@
 import math
+from typing import List
+from setups.entities.table import Table
 from setups.exceptions.setup_error import SetupError
 
 
@@ -18,7 +20,7 @@ class ExamSetup:
         self.distance_between_width = 50
         self.distance_between_length = 80
 
-    def create_setup(self):
+    def create_setup(self) -> List[Table]:
         """
         Calculate a setup based on the dimensions of the given room and given tables
         :return: List of tables in the correct position for this setup
