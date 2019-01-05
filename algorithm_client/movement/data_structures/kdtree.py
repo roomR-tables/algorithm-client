@@ -7,12 +7,11 @@ class KdTree:
         KD tree
         :param dimensions: Amount of dimensions
         :type dimensions: int
-        :param start_dimension: Dimension of the root of this tree
+        :param start_dimension: Dimension of the root node
         :type start_dimension: int
         """
-        self.dimensions = dimensions
-        self.start_dimension = start_dimension
-
+        self.dimensions = dimensions - 1
+        self.start_dimension = start_dimension - 1
         self.root = None
 
     def insert(self, value_to_insert, compare_function):
@@ -28,7 +27,7 @@ class KdTree:
         if type(value_to_insert) is not tuple:
             raise TypeError("The given value is not a tuple")
 
-        if len(value_to_insert) != self.dimensions:
+        if len(value_to_insert) != self.dimensions + 1:
             raise ValueError("The given value does not have the same dimensions as the KD tree supports")
 
         if self.root is None:
@@ -47,18 +46,17 @@ class KdTree:
         :type curr_node: KdTreeNode
         :return:
         """
-        # Subtract 1 since arrays start at 0
-        if compare_function(value[curr_dimension - 1], curr_node.value[curr_dimension - 1]) <= 0:
+        if compare_function(value, curr_node.value, curr_dimension) <= 0:
             if curr_node.left is None:
                 curr_node.left = KdTreeNode(value, None, None)
             else:
-                next_dimension = 1 if curr_dimension + 1 > self.dimensions else curr_dimension + 1
+                next_dimension = 0 if curr_dimension + 1 > self.dimensions else curr_dimension + 1
                 self._insert(value, compare_function, curr_node.left, next_dimension)
         else:
             if curr_node.right is None:
                 curr_node.right = KdTreeNode(value, None, None)
             else:
-                next_dimension = 1 if curr_dimension + 1 > self.dimensions else curr_dimension + 1
+                next_dimension = 0 if curr_dimension + 1 > self.dimensions else curr_dimension + 1
                 self._insert(value, compare_function, curr_node.right, next_dimension)
 
     def find(self, value, search_func):
@@ -73,19 +71,19 @@ class KdTree:
         if type(value) is not tuple:
             raise TypeError("The given value is not a tuple")
 
-        if len(value) != self.dimensions:
+        if len(value) != self.dimensions + 1:
             raise ValueError("The given value does not have the same dimensions as the KD tree supports")
 
         if self.root is None:
             raise KdTreeError("The KD tree is empty")
 
         curr_node = self.root
-        curr_dimension = self.start_dimension
+        curr_dimension = 0
         found_node = None
 
         while found_node is None and curr_node is not None:
             compare_result = search_func(value, curr_node.value, curr_dimension)
-            next_dimension = 1 if curr_dimension + 1 > self.dimensions else curr_dimension + 1
+            next_dimension = 0 if curr_dimension + 1 > self.dimensions else curr_dimension + 1
 
             if compare_result == 0:
                 found_node = curr_node

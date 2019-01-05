@@ -21,10 +21,10 @@ class TestKdTree(unittest.TestCase):
         root_value = (200, 400)
 
         tree = KdTree(dimensions=2, start_dimension=2)
-        tree.insert(root_value, lambda value, node_value: -1 if value <= node_value else 1)
+        tree.insert(root_value, lambda value, node_value, dimension: -1 if value[dimension] <= node_value[dimension] else 1)
 
         for value in values_to_insert:
-            tree.insert(value, lambda value, node_value: -1 if value <= node_value else 1)
+            tree.insert(value, lambda value, node_value, dimension: -1 if value[dimension] <= node_value[dimension] else 1)
 
         self.tree = tree
 
